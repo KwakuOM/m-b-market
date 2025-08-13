@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - M&BMarket</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>M&B Market</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="sell.html">Sell</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+                <button>Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-listing">
+            <div class="container">
+                <h2>All Products</h2>
+                <div class="filters">
+                    <select>
+                        <option>All Categories</option>
+                        <option>Electronics</option>
+                        <option>Furniture</option>
+                        <option>Clothing</option>
+                        <option>Books</option>
+                    </select>
+                    <select>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest First</option>
+                    </select>
+                </div>
+                <div class="products">
+                    <div class="product">
+                        <img src="images/smartphone.jpeg" alt="Smartphone">
+                        <h3>Smartphone</h3>
+                        <p class="price"> ₵299.99</p>
+                        <p class="location">Accra, Ghana</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                    <div class="product">
+                        <img src="images/wooden chair.jpeg" alt="Wooden Chair">
+                        <h3>Wooden Chair</h3>
+                        <p class="price">$ ₵89.99</p>
+                        <p class="location">Kumasi, Ghana</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                    <div class="product">
+                        <img src="images/designer bag.jpeg" alt="Designer Bag">
+                        <h3>Designer Bag</h3>
+                        <p class="price"> ₵149.99</p>
+                        <p class="location">Takoradi, Ghana</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                    <div class="product">
+                        <img src="images/Reliable and portable, the Dell Inspiron 14….jpeg" alt="Laptop">
+                        <h3>Laptop</h3>
+                        <p class="price"> ₵599.99</p>
+                        <p class="location">Cape Coast, Ghana</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                    <div class="product">
+                        <img src="images/sofa.jpeg" alt="Sofa">
+                        <h3>Comfortable Sofa</h3>
+                        <p class="price"> ₵399.99</p>
+                        <p class="location">Accra, Ghana</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                    <div class="product">
+                        <img src="images/Free Survival Ebooks.jpeg" alt="Novel">
+                        <h3>Bestselling Novel</h3>
+                        <p class="price"> ₵19.99</p>
+                        <p class="location">Kumasi, Ghana</p>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>M&B Market</h3>
+                    <p>Connecting local buyers and sellers with convenient delivery options</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="sell.html">Sell</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@m&bmarket.com</p>
+                    <p>Phone: +233 50 083 5166</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 M&B Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize products on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+        });
+        
+        const supabaseUrl = 'https://udlfkbnjzcsvopeilxnm.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGZrYm5qemNzdm9wZWlseG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NjkxNDgsImV4cCI6MjA3MDI0NTE0OH0.ipd7WiTGXw7FzA8cLeBYxZaUiU2Mznuo9NOcr-RQ-W4';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        document.querySelectorAll('a[href="account.html"]').forEach(link => {
+            link.addEventListener('click', async function(e) {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) {
+                    e.preventDefault();
+                    window.location.href = 'register.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

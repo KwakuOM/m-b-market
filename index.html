@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&BMarket - Buy/Sell Local Goods</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>M&B Market</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="sell.html">Sell</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+                <button>Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Buy and Sell Goods with Delivery</h2>
+                <p>Connect with sellers and buyers in your community</p>
+                <div class="cta-buttons">
+                    <a href="products.html" class="btn btn-primary">Shop Now</a>
+                    <a href="sell.html" class="btn btn-secondary">Sell Items</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-categories">
+            <div class="container">
+                <h2>Shop by Category</h2>
+                <div class="categories">
+                    <div class="category">
+                        <img src="images/electronic.jpeg" alt="Electronics">
+                        <h3>Electronics</h3>
+                    </div>
+                    <div class="category">
+                        <img src="images/furniture.jpeg" alt="Furniture">
+                        <h3>Furniture</h3>
+                    </div>
+                    <div class="category">
+                        <img src="images/clothing.jpeg" alt="Clothing">
+                        <h3>Clothing</h3>
+                    </div>
+                    <div class="category">
+                        <img src="images/Free Survival Ebooks.jpeg" alt="Books">
+                        <h3>Books</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-products">
+            <div class="container">
+                <h2>Featured Products</h2>
+                <div class="products">
+                    <div class="product">
+                        <img src="images/smartphone.jpeg" alt="Product 1">
+                        <h3>Smartphone</h3>
+                        <p class="price"> ₵299.99</p>
+                        <p class="location">Accra, Ghana</p>
+                    </div>
+                    <div class="product">
+                        <img src="images/wooden chair.jpeg" alt="Product 2">
+                        <h3>Wooden Chair</h3>
+                        <p class="price"> ₵89.99</p>
+                        <p class="location">Kumasi, Ghana</p>
+                    </div>
+                    <div class="product">
+                        <img src="images/designer bag.jpeg" alt="Product 3">
+                        <h3>Designer Bag</h3>
+                        <p class="price"> ₵149.99</p>
+                        <p class="location">Takoradi, Ghana</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <div class="container">
+                <h2>How M&B Market Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <h3>1. Browse</h3>
+                        <p>Find local products for sale in your area</p>
+                    </div>
+                    <div class="step">
+                        <h3>2. Connect</h3>
+                        <p>Message sellers directly through our platform</p>
+                    </div>
+                    <div class="step">
+                        <h3>3. Arrange Delivery</h3>
+                        <p>Coordinate pickup or delivery with the seller</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LocalMarket</h3>
+                    <p>Connecting buyers and sellers with convenient delivery options</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="sell.html">Sell</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@m&bmarket.com</p>
+                    <p>Phone: +233 25 702 1707</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LocalMarket. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const supabaseUrl = 'https://udlfkbnjzcsvopeilxnm.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGZrYm5qemNzdm9wZWlseG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NjkxNDgsImV4cCI6MjA3MDI0NTE0OH0.ipd7WiTGXw7FzA8cLeBYxZaUiU2Mznuo9NOcr-RQ-W4';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        document.querySelectorAll('a[href="account.html"]').forEach(link => {
+            link.addEventListener('click', async function(e) {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) {
+                    e.preventDefault();
+                    window.location.href = 'register.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

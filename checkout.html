@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - M&B Market</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>M&B Market</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="sell.html">Sell</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+                <button>Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="checkout">
+            <div class="container">
+                <h2>Checkout</h2>
+                <div class="checkout-content">
+                    <div class="checkout-form">
+                        <div class="billing-address">
+                            <h3>Billing Address</h3>
+                            <form id="billing-form">
+                                <div class="form-group">
+                                    <label for="billing-name">Full Name</label>
+                                    <input type="text" id="billing-name" name="billing-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing-email">Email</label>
+                                    <input type="email" id="billing-email" name="billing-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing-address">Address</label>
+                                    <textarea id="billing-address" name="billing-address" rows="3" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing-city">City</label>
+                                    <input type="text" id="billing-city" name="billing-city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing-region">Region</label>
+                                    <input type="text" id="billing-region" name="billing-region" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing-phone">Phone Number</label>
+                                    <input type="tel" id="billing-phone" name="billing-phone" required>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="shipping-address">
+                            <h3>Shipping Address</h3>
+                            <form id="shipping-form">
+                                <div class="form-group">
+                                    <label for="shipping-name">Full Name</label>
+                                    <input type="text" id="shipping-name" name="shipping-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipping-email">Email</label>
+                                    <input type="email" id="shipping-email" name="shipping-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipping-address">Address</label>
+                                    <textarea id="shipping-address" name="shipping-address" rows="3" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipping-city">City</label>
+                                    <input type="text" id="shipping-city" name="shipping-city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipping-region">Region</label>
+                                    <input type="text" id="shipping-region" name="shipping-region" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipping-phone">Phone Number</label>
+                                    <input type="tel" id="shipping-phone" name="shipping-phone" required>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="payment-method">
+                            <h3>Payment Method</h3>
+                            <form id="payment-form">
+                                <div class="form-group">
+                                    <label for="payment-type">Payment Type</label>
+                                    <select id="payment-type" name="payment-type" required>
+                                        <option value="">Select Payment Method</option>
+                                        <option value="momo">Mobile Money</option>
+                                        <option value="bank">Bank Transfer</option>
+                                        <option value="cash">Cash on Delivery</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card-number">Card Number</label>
+                                    <input type="text" id="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expiry-date">Expiry Date</label>
+                                    <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="XXX">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="cart-summary">
+                        <h3>Order Summary</h3>
+                        <div class="summary-item">
+                            <span>Subtotal</span>
+                            <span>₵449.98</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Delivery Fee</span>
+                            <span>₵15.00</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total</span>
+                            <span>₵464.98</span>
+                        </div>
+                        <button class="btn btn-primary checkout-btn">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>M&B Market</h3>
+                    <p>Connecting local buyers and sellers with convenient delivery options</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="sell.html">Sell</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@m&bmarket.com</p>
+                    <p>Phone: +233 50 083 5166</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 M&B Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const supabaseUrl = 'https://udlfkbnjzcsvopeilxnm.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGZrYm5qemNzdm9wZWlseG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NjkxNDgsImV4cCI6MjA3MDI0NTE0OH0.ipd7WiTGXw7FzA8cLeBYxZaUiU2Mznuo9NOcr-RQ-W4';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', async function() {
+            const { data: { user } } = await supabase.auth.getUser();
+            
+            if (!user) {
+                alert('Please register or log in to proceed to checkout.');
+                window.location.href = 'register.html';
+                return;
+            }
+            
+            // Pre-fill forms with user data
+            document.getElementById('billing-name').value = user.user_metadata?.name || '';
+            document.getElementById('billing-email').value = user.email || '';
+            document.getElementById('shipping-name').value = user.user_metadata?.name || '';
+            document.getElementById('shipping-email').value = user.email || '';
+        });
+
+        // Handle place order button click
+        document.querySelector('.checkout-btn').addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const billingData = {
+                name: document.getElementById('billing-name').value,
+                email: document.getElementById('billing-email').value,
+                address: document.getElementById('billing-address').value,
+                city: document.getElementById('billing-city').value,
+                region: document.getElementById('billing-region').value,
+                phone: document.getElementById('billing-phone').value
+            };
+            
+            const shippingData = {
+                name: document.getElementById('shipping-name').value,
+                email: document.getElementById('shipping-email').value,
+                address: document.getElementById('shipping-address').value,
+                city: document.getElementById('shipping-city').value,
+                region: document.getElementById('shipping-region').value,
+                phone: document.getElementById('shipping-phone').value
+            };
+            
+            const paymentData = {
+                type: document.getElementById('payment-type').value,
+                cardNumber: document.getElementById('card-number').value,
+                expiryDate: document.getElementById('expiry-date').value,
+                cvv: document.getElementById('cvv').value
+            };
+            
+            // In a real application, you would process the order here
+            // For now, we'll just show an alert
+            alert('Order placed successfully! Thank you for your purchase.');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

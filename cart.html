@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - M&B Market</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>M&B Market</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="sell.html">Sell</a></li>
+                    <li><a href="cart.html" class="active">Cart</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+                <button>Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="cart">
+            <div class="container">
+                <h2>Shopping Cart</h2>
+                <div class="cart-content">
+                    <div class="cart-items">
+                        <!-- Cart items will be populated by JavaScript -->
+                    </div>
+                    <div class="cart-summary">
+                        <h3>Cart Summary</h3>
+                        <div class="summary-item">
+                            <span>Subtotal</span>
+                            <span class="subtotal">₵0.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Delivery Fee</span>
+                            <span class="delivery-fee">₵0.00</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total</span>
+                            <span class="total">₵0.00</span>
+                        </div>
+                        <button class="btn btn-primary checkout-btn">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>B&M Market</h3>
+                    <p>Connecting local buyers and sellers with convenient delivery options</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="sell.html">Sell</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@m&bmarket.com</p>
+                    <p>Phone: +233 50 083 5166</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 M&B Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://udlfkbnjzcsvopeilxnm.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGZrYm5qemNzdm9wZWlseG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NjkxNDgsImV4cCI6MjA3MDI0NTE0OH0.ipd7WiTGXw7FzA8cLeBYxZaUiU2Mznuo9NOcr-RQ-W4';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load cart from localStorage
+            loadCart();
+            // Update cart display
+            updateCartDisplay();
+            
+            // Add event listener to checkout button
+            document.querySelector('.checkout-btn').addEventListener('click', async function(e) {
+                e.preventDefault();
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) {
+                    alert('Please register or log in to proceed to checkout.');
+                    window.location.href = 'register.html';
+                } else {
+                    // Proceed to checkout (replace with your own logic or redirect)
+                    alert('Checkout successful! Thank you for your purchase.');
+                    // window.location.href = 'confirmation.html'; // Uncomment if you have a confirmation page
+                }
+            });
+        });
+    </script>
+</body>
+</html>

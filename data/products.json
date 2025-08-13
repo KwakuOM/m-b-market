@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Smartphone",
+    "description": "Latest model smartphone with excellent camera quality",
+    "price": 299.99,
+    "category": "electronics",
+    "image": "images/electronic.jpeg",
+    "location": "Accra, Ghana",
+    "deliveryOptions": "both"
+  },
+  {
+    "id": 2,
+    "name": "Wooden Chair",
+    "description": "Comfortable wooden chair, perfect for your living room",
+    "price": 89.99,
+    "category": "furniture",
+    "image": "images/furniture.jpeg",
+    "location": "Kumasi, Ghana",
+    "deliveryOptions": "delivery"
+  },
+  {
+    "id": 3,
+    "name": "Designer Bag",
+    "description": "Authentic designer bag, barely used",
+    "price": 149.99,
+    "category": "clothing",
+    "image": "images/designer bag.jpeg",
+    "location": "Takoradi, Ghana",
+    "deliveryOptions": "pickup"
+  },
+  {
+    "id": 4,
+    "name": "Laptop",
+    "description": "High-performance laptop, great for work and gaming",
+    "price": 599.99,
+    "category": "electronics",
+    "image": "images/Reliable and portable, the Dell Inspiron 14….jpeg",
+    "location": "Cape Coast, Ghana",
+    "deliveryOptions": "delivery"
+  },
+  {
+    "id": 5,
+    "name": "Comfortable Sofa",
+    "description": "Three-seater sofa in excellent condition",
+    "price": 399.99,
+    "category": "furniture",
+    "image": "images/sofa.jpeg",
+    "location": "Accra, Ghana",
+    "deliveryOptions": "both"
+  },
+  {
+    "id": 6,
+    "name": "Bestselling Novel",
+    "description": "Award-winning novel in excellent condition",
+    "price": 19.99,
+    "category": "books",
+    "image": "images/Free Survival Ebooks.jpeg",
+    "location": "Kumasi, Ghana",
+    "deliveryOptions": "pickup"
+  }
+]

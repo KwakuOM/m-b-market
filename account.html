@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - M&B Market</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>M&B Market</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="sell.html">Sell</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="account.html" class="active">Account</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+                <button>Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="account">
+            <div class="container">
+                <h2>My Account</h2>
+                <div class="account-content">
+                    <div class="user-info">
+                        <h3>Profile Information</h3>
+                        <form id="profile-form">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" name="location" placeholder="e.g., Accra, Ghana" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" placeholder="e.g., +233 24 123 4567">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+
+                    <div class="user-listings">
+                        <h3>Address Book</h3>
+                        <form id="address-form">
+                            <div class="form-group">
+                                <label for="address-name">Address Name (e.g., Home, Office)</label>
+                                <input type="text" id="address-name" name="address-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea id="address" name="address" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="region">Region</label>
+                                <input type="text" id="region" name="region" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Address</button>
+                        </form>
+                        <div class="saved-addresses">
+                            <h4>Saved Addresses</h4>
+                            <div class="address-list">
+                                <!-- Addresses will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="user-orders">
+                        <h3>Order History</h3>
+                        <div class="order-list">
+                            <!-- Orders will be populated here -->
+                            <div class="no-orders">
+                                <p>You haven't placed any orders yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>M&B Market</h3>
+                    <p>Connecting local buyers and sellers with convenient delivery options</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="sell.html">Sell</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@m&bmarket.com</p>
+                    <p>Phone: +233 25 702 1707</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 M&B Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://udlfkbnjzcsvopeilxnm.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGZrYm5qemNzdm9wZWlseG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NjkxNDgsImV4cCI6MjA3MDI0NTE0OH0.ipd7WiTGXw7FzA8cLeBYxZaUiU2Mznuo9NOcr-RQ-W4';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', async function() {
+            const { data: { user } } = await supabase.auth.getUser();
+            
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load user data
+            loadUserData(user);
+            
+            // Load user addresses
+            loadUserAddresses();
+            
+            // Load order history
+            loadOrderHistory();
+        });
+
+        // Load user data
+        async function loadUserData(user) {
+            document.getElementById('name').value = user.user_metadata?.name || '';
+            document.getElementById('email').value = user.email || '';
+            document.getElementById('location').value = user.user_metadata?.location || '';
+            document.getElementById('phone').value = user.user_metadata?.phone || '';
+        }
+
+        // Handle profile form submission
+        document.getElementById('profile-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const location = document.getElementById('location').value;
+            const phone = document.getElementById('phone').value;
+            
+            // Update user data in Supabase
+            const { data, error } = await supabase.auth.updateUser({
+                data: {
+                    name,
+                    location,
+                    phone
+                }
+            });
+            
+            if (error) {
+                alert('Error updating profile: ' + error.message);
+            } else {
+                alert('Profile updated successfully!');
+            }
+        });
+
+        // Handle address form submission
+        document.getElementById('address-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const addressName = document.getElementById('address-name').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const region = document.getElementById('region').value;
+            
+            // In a real application, you would save this to your database
+            // For now, we'll just show an alert and simulate adding to the list
+            alert(`Address "${addressName}" added successfully!`);
+            
+            // Add address to the list (in a real app, this would come from the database)
+            addAddressToList(addressName, address, city, region);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Simulate loading user addresses
+        function loadUserAddresses() {
+            // In a real application, you would fetch this from your database
+            // For demonstration, we'll add some sample addresses
+            const sampleAddresses = [
+                { name: "Home", address: "123 Main Street", city: "Accra", region: "Greater Accra" },
+                { name: "Office", address: "456 Business Road", city: "Accra", region: "Greater Accra" }
+            ];
+            
+            sampleAddresses.forEach(addr => {
+                addAddressToList(addr.name, addr.address, addr.city, addr.region);
+            });
+        }
+
+        // Add address to the list
+        function addAddressToList(name, address, city, region) {
+            const addressList = document.querySelector('.address-list');
+            
+            const addressElement = document.createElement('div');
+            addressElement.className = 'saved-address';
+            addressElement.innerHTML = `
+                <div class="address-header">
+                    <h4>${name}</h4>
+                    <div class="address-actions">
+                        <button class="btn btn-secondary edit-address">Edit</button>
+                        <button class="btn btn-danger delete-address">Delete</button>
+                    </div>
+                </div>
+                <div class="address-details">
+                    <p>${address}</p>
+                    <p>${city}, ${region}</p>
+                </div>
+            `;
+            
+            addressList.appendChild(addressElement);
+            
+            // Add event listeners for edit and delete buttons
+            addressElement.querySelector('.edit-address').addEventListener('click', function() {
+                // In a real application, this would open an edit modal or form
+                alert(`Editing address "${name}"`);
+            });
+            
+            addressElement.querySelector('.delete-address').addEventListener('click', function() {
+                // In a real application, this would delete the address from the database
+                if (confirm(`Are you sure you want to delete the address "${name}"?`)) {
+                    addressElement.remove();
+                    alert(`Address "${name}" deleted successfully!`);
+                }
+            });
+        }
+
+        // Simulate loading order history
+        function loadOrderHistory() {
+            // In a real application, you would fetch this from your database
+            // For demonstration, we'll add some sample orders
+            const sampleOrders = [
+                { id: "ORD-001", date: "2025-08-01", total: "₵149.99", items: [
+                    { name: "Designer Bag", price: "₵149.99", quantity: 1, image: "images/designer bag.jpeg" }
+                ]},
+                { id: "ORD-002", date: "2025-07-28", total: "₵389.97", items: [
+                    { name: "Wooden Chair", price: "₵89.99", quantity: 2, image: "images/wooden chair.jpeg" },
+                    { name: "Sofa", price: "₵299.99", quantity: 1, image: "images/sofa.jpeg" }
+                ]}
+            ];
+            
+            const orderList = document.querySelector('.order-list');
+            orderList.innerHTML = ''; // Clear the "no orders" message
+            
+            sampleOrders.forEach(order => {
+                addOrderToList(order);
+            });
+        }
+
+        // Add order to the list
+        function addOrderToList(order) {
+            const orderList = document.querySelector('.order-list');
+            
+            const orderElement = document.createElement('div');
+            orderElement.className = 'order';
+            orderElement.innerHTML = `
+                <div class="order-header">
+                    <span>Order ID: ${order.id}</span>
+                    <span>Date: ${order.date}</span>
+                </div>
+                <div class="order-items">
+                    ${order.items.map(item => `
+                        <div class="order-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="item-details">
+                                <h4>${item.name}</h4>
+                                <p>Price: ${item.price}</p>
+                                <p>Quantity: ${item.quantity}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="order-total">
+                    Total: ${order.total}
+                </div>
+            `;
+            
+            orderList.appendChild(orderElement);
+        }
+    </script>
+</body>
+</html>
