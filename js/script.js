@@ -232,7 +232,18 @@ if (searchButton) {
             // In a real application, this would search the products
             alert(`Searching for: ${searchTerm}`);
             // Redirect to products page with search query
-            // window.location.href = `products.html?search=${encodeURIComponent(searchTerm)}`;
+            window.location.href = `products.html?search=${encodeURIComponent(searchTerm)}`;
+        }
+    });
+}
+// Also add functionality for pressing Enter in the search input
+if (searchInput) {
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                window.location.href = `products.html?search=${encodeURIComponent(searchTerm)}`;
+            }
         }
     });
 }
