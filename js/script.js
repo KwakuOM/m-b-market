@@ -288,7 +288,7 @@ function displayProducts(products) {
             <div class="product" data-id="${product.id}">
                 <img src="${product.image}" alt="${product.name}">
                 <h3>${product.name}</h3>
-                <p class="price">$${product.price.toFixed(2)}</p>
+                <p class="price">₵${product.price.toFixed(2)}</p>
                 <p class="location">${product.location}</p>
                 <button class="btn btn-primary add-to-cart" data-product='${JSON.stringify(product)}'>Add to Cart</button>
             </div>
