@@ -175,7 +175,7 @@ if (productForm) {
 
 // Login form submission
 if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         // Get form values
@@ -188,8 +188,42 @@ if (loginForm) {
             return;
         }
         
-        // Simulate login
-        login(email, password);
+        // Show loading state
+        const submitButton = document.querySelector('#login-form .btn-primary');
+        const originalButtonText = submitButton.textContent;
+        submitButton.textContent = 'Logging in...';
+        submitButton.disabled = true;
+        
+        try {
+            // Initialize Supabase (if not already done)
+            if (typeof supabase === 'undefined') {
+                const supabaseUrl = 'https://udlfkbnjzcsvopeilxnm.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGZrYm5qemNzdm9wZWlseG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NjkxNDgsImV4cCI6MjA3MDI0NTE0OH0.ipd7WiTGXw7FzA8cLeBYxZaUiU2Mznuo9NOcr-RQ-W4';
+                supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+            }
+            
+            // Sign in user with Supabase Auth
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+            
+            if (error) {
+                console.error('Login error:', error);
+                alert('Login failed: ' + error.message);
+            } else {
+                alert('Login successful!');
+                // Redirect to account page
+                window.location.href = 'account.html';
+            }
+        } catch (err) {
+            console.error('Unexpected error:', err);
+            alert('An unexpected error occurred. Please try again.');
+        } finally {
+            // Restore button state
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        }
     });
 }
 
@@ -298,33 +332,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// User authentication simulation
-const user = {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    location: 'Accra, Ghana',
-    isAuthenticated: false
-};
+// User authentication with Supabase
+let supabase; // Will be initialized in each page
 
-// Login function (simulated)
-function login(email, password) {
-    // In a real application, this would verify credentials with a server
-    if (email === 'user@example.com' && password === 'password') {
-        user.isAuthenticated = true;
-        user.name = 'John Doe';
-        user.email = email;
-        user.location = 'Accra, Ghana';
-        localStorage.setItem('user', JSON.stringify(user));
-        alert('Login successful!');
+// Initialize Supabase if not already done
+function initSupabase() {
+    if (!supabase) {
+        const supabaseUrl = 'https://udlfkbnjzcsvopeilxnm.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGZrYm5qemNzdm9wZWlseG5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NjkxNDgsImV4cCI6MjA3MDI0NTE0OH0.ipd7WiTGXw7FzA8cLeBYxZaUiU2Mznuo9NOcr-RQ-W4';
+        supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    }
+    return supabase;
+}
+
+// Login function with Supabase
+async function login(email, password) {
+    try {
+        // Initialize Supabase
+        const supabase = initSupabase();
         
-        // Update UI to show user is logged in
-        updateAuthUI();
+        // Sign in user with Supabase Auth
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        });
         
-        // Redirect to account page
-        window.location.href = 'account.html';
-        return true;
-    } else {
-        alert('Invalid credentials');
+        if (error) {
+            console.error('Login error:', error);
+            alert('Login failed: ' + error.message);
+            return false;
+        } else {
+            alert('Login successful!');
+            
+            // Update UI to show user is logged in
+            updateAuthUI();
+            
+            // Redirect to account page
+            window.location.href = 'account.html';
+            return true;
+        }
+    } catch (err) {
+        console.error('Unexpected error:', err);
+        alert('An unexpected error occurred. Please try again.');
         return false;
     }
 }
