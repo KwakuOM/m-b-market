@@ -193,33 +193,6 @@ if (loginForm) {
     });
 }
 
-// Register form submission
-if (registerForm) {
-    registerForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
-        const location = document.getElementById('location').value;
-        
-        // Basic validation
-        if (!name || !email || !password || !confirmPassword || !location) {
-            alert('Please fill in all fields');
-            return;
-        }
-        
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
-            return;
-        }
-        
-        // Simulate registration
-        register(name, email, password, location);
-    });
-}
 
 // Search functionality
 const searchInput = document.querySelector('.search-bar input');

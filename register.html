@@ -121,23 +121,47 @@
                 return;
             }
 
-            // Sign up user with Supabase Auth
-            const { data, error } = await supabase.auth.signUp({
-                email,
-                password,
-                options: {
-                    data: {
-                        name,
-                        location
-                    }
-                }
-            });
+            // Show loading state
+            const submitButton = document.querySelector('#register-form .btn-primary');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Registering...';
+            submitButton.disabled = true;
 
-            if (error) {
-                alert(error.message);
-            } else {
-                alert('Registration successful! Please check your email to confirm your account.');
-                window.location.href = 'login.html';
+            try {
+                // Sign up user with Supabase Auth
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            name,
+                            location
+                        }
+                    }
+                });
+
+                if (error) {
+                    console.error('Registration error:', error);
+                    if (error.message.includes('already registered')) {
+                        alert('This email is already registered. Please login instead.');
+                    } else {
+                        alert('Registration failed: ' + error.message);
+                    }
+                } else {
+                    if (data.user) {
+                        alert('Registration successful! Please check your email to confirm your account.');
+                    } else {
+                        alert('Registration successful! Please login.');
+                    }
+                    window.location.href = 'login.html';
+                }
+            } catch (err) {
+                console.error('Unexpected error:', err);
+                alert('An unexpected error occurred. Please try again.');
+            } finally {
+                // Restore button state
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
             }
         });
     </script>
